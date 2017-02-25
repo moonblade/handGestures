@@ -16,12 +16,12 @@ using namespace std;
 #define averageLoopCount 20
 
 // Range of values for color checking
-#define firstRange 25
-#define secondRange 25
-#define thirdRange 25
+#define firstRange 40
+#define secondRange 40
+#define thirdRange 40
 
 // Blur pixel radius
-#define blurRadius 5
+#define blurRadius 7
 
 //points where the data will be taken
 vector<Point> points;
