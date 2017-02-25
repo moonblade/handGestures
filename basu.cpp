@@ -15,7 +15,7 @@ using namespace std;
 //points where the data will be taken
 vector<Point> points;
 // to add all the colors from the above points
-std::vector<Scalar> colors;
+Scalar averageColor;
 void initializePoints()
 {
     // to quickly move whole figure
@@ -51,14 +51,23 @@ void getColor(Mat frame)
 {
     // Set the regions of interest with the points
     int i=0;
-    for(auto iter=points.begin();iter!=points.end();++iter)
+    // total colours for final average
+    long r=0, g=0, b=0;
+    Scalar color;
+    for(auto iter=points.begin();iter!=points.end();++iter,i++)
     {
         // Create a rectangle with with each of the points, enclosing the circle
-        Rect r(iter->x - radius, iter->y - radius, radius * 2,radius * 2);
+        Rect rect(iter->x - radius, iter->y - radius, radius * 2,radius * 2);
         // Create regions of interest from the frame, and then calculate its mean
-        colors.push_back(mean(frame(r)));
+        color=mean(frame(rect));
+        // Add bgr to total
+        b+=color[0];
+        r+=color[1];
+        g+=color[2];
     }
-    
+    averageColor[0]=b/i;
+    averageColor[1]=r/i;
+    averageColor[2]=g/i;
 }
 int main(int argc, char const *argv[])
 {
